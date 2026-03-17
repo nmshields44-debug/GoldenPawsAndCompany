@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Natalie | Golden Paws & Company</title>
+    <meta name="description" content="Meet Natalie Shields — the heart behind Golden Paws & Company.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --primary: #9AACEC;
+            --primary-deep: #8299d9;
+            --primary-muted: #B8C4F0;
+            --bg: #CCDDFF;
+            --bg-light: #E2E7FC;
+            --bg-pale: #ECEFFE;
+            --accent: #FFD10D;
+            --accent-hover: #E6BC00;
+            --accent-light: #FFF7CC;
+            --green: #FFD10D;
+            --green-light: #FFD10D;
+            --rare: #F7EDEE;
+            --white: #FFFFFF;
+            --text: #40607A;
+            --text-body: #40607A;
+            --text-muted: #40607A;
+            --shadow-sm: 0 2px 12px rgba(26,43,95,0.07);
+            --shadow-md: 0 8px 32px rgba(26,43,95,0.09);
+            --shadow-lg: 0 16px 48px rgba(26,43,95,0.12);
+            --shadow-glow: 0 0 60px rgba(143,163,232,0.3);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --radius-xs: 8px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif}
+        html{scroll-behavior:smooth;scroll-padding-top:80px}
+        body{font-family:'Adobe Clean';color:var(--text-body);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+        body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+        .reveal{opacity:0;transform:translateY(50px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+        .reveal.vis{opacity:1;transform:translateY(0)}
+        .reveal-left{opacity:0;transform:translateX(-60px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+        .reveal-left.vis{opacity:1;transform:translateX(0)}
+        .reveal-right{opacity:0;transform:translateX(60px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+        .reveal-right.vis{opacity:1;transform:translateX(0)}
+        .stagger-1{transition-delay:0.1s}.stagger-2{transition-delay:0.2s}
+        @keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,-15px)}}
+
+        nav{position:fixed;top:0;width:100%;z-index:100;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);padding:8px 0;background:var(--white);box-shadow:0 2px 12px rgba(26,43,95,0.08)}
+        nav.scrolled{background:var(--white);box-shadow:0 2px 12px rgba(26,43,95,0.1);padding:0}
+        .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:72px}
+        .nav-logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;color:var(--text);text-decoration:none;letter-spacing:-0.01em}
+        .nav-logo span{color:var(--text)}
+        .nav-links{display:flex;gap:8px;list-style:none;align-items:center}
+        .nav-links a{text-decoration:none;color:var(--text-muted);font-size:0.88rem;font-weight:500;padding:8px 16px;border-radius:50px;transition:all 0.3s}
+        .nav-links a:hover{color:var(--text);background:rgba(143,163,232,0.12)}
+        .nav-links a.active{color:var(--text);font-weight:600}
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+        .hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s}
+        .mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--white);box-shadow:0 8px 24px rgba(26,43,95,0.1);padding:16px 32px 24px}
+        .mobile-menu.open{display:block}
+        .mobile-menu a{display:block;padding:14px 0;text-decoration:none;color:var(--text-muted);font-weight:500;font-size:1rem;border-bottom:1px solid rgba(143,163,232,0.15)}
+        .mobile-menu a:last-child{border-bottom:none}
+
+        section{padding:120px 32px;position:relative}
+        .section-inner{max-width:1080px;margin:0 auto}
+        .section-header{margin-bottom:56px}
+        .section-header.centered{text-align:center}
+        .section-label{font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+        .section-header.centered .section-label{justify-content:center}
+        .section-label::before{content:'';width:20px;height:2px;background:var(--accent);border-radius:2px}
+        .section-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1.15;letter-spacing:-0.02em}
+        .section-sub{font-size:1.1rem;color:var(--text-muted);margin-top:16px;max-width:540px;line-height:1.8}
+        .section-header.centered .section-sub{margin-left:auto;margin-right:auto}
+
+        #meet-natalie{background:var(--white)}
+        .natalie-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
+        .natalie-carousel{position:relative}
+        .carousel-track{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow-lg)}
+        .carousel-track::before{content:'';position:absolute;inset:-12px;background:linear-gradient(135deg,var(--primary-muted),var(--accent-light));border-radius:calc(var(--radius)+8px);z-index:-1;opacity:0.5;transform:rotate(-2deg)}
+        .carousel-slide{position:absolute;inset:0;opacity:0;transition:opacity 0.6s ease}
+        .carousel-slide.active{opacity:1;position:relative}
+        .carousel-slide img{width:100%;height:100%;object-fit:cover;object-position:top}
+        .carousel-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px}
+        .carousel-dots{display:flex;gap:8px;align-items:center}
+        .carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--primary-muted);cursor:pointer;transition:all 0.3s;border:none;padding:0}
+        .carousel-dot.active{background:var(--text);transform:scale(1.3)}
+        .natalie-text-col .section-header{margin-bottom:28px}
+        .natalie-bio p{font-size:1.05rem;line-height:1.9;margin-bottom:18px;color:var(--text-body)}
+        .natalie-bio strong{color:var(--text);font-weight:600}
+
+        #reviews{background:var(--white)}
+        .testimonials-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
+        .testimonial-card{background:var(--bg-pale);padding:44px 36px;border-radius:var(--radius);box-shadow:var(--shadow-sm);position:relative;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);border:1px solid rgba(143,163,232,0.15)}
+        .testimonial-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+        .quote-mark{font-family:'Playfair Display',serif;font-size:5rem;line-height:1;color:var(--primary-muted);opacity:0.4;position:absolute;top:16px;left:28px}
+        .testimonial-text{font-size:1.1rem;line-height:1.8;color:var(--text-body);font-style:italic;margin-bottom:24px;position:relative;z-index:1}
+        .testimonial-author{font-weight:700;color:var(--text);font-size:0.92rem;display:flex;align-items:center;gap:10px}
+        .testimonial-author::before{content:'';width:24px;height:2px;background:var(--accent);border-radius:2px}
+
+        footer{background:var(--text);color:rgba(255,255,255,0.7);padding:64px 32px 32px}
+        .footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr auto auto;gap:48px;align-items:start}
+        .footer-brand .footer-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:10px}
+        .footer-brand .footer-logo span{color:var(--white)}
+        .footer-brand p{font-size:0.9rem;color:rgba(255,255,255,0.45);max-width:300px;line-height:1.7}
+        .footer-nav h4{font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
+        .footer-nav a{display:block;color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.92rem;padding:5px 0;transition:color 0.2s}
+        .footer-nav a:hover{color:var(--accent)}
+        .footer-bottom{max-width:1080px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;color:rgba(255,255,255,0.3)}
+        .footer-social{display:flex;gap:12px}
+        .footer-social a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;transition:all 0.3s;text-decoration:none}
+        .footer-social a:hover{background:var(--accent);transform:translateY(-2px)}
+
+        @media(max-width:900px){
+            .natalie-layout{grid-template-columns:1fr}
+            .carousel-track{aspect-ratio:4/3;max-width:400px;margin:0 auto}
+            .testimonials-grid{grid-template-columns:1fr}
+            .footer-inner{grid-template-columns:1fr;gap:32px}
+            .footer-bottom{flex-direction:column;gap:16px;text-align:center}
+        }
+        @media(max-width:768px){
+            .nav-links{display:none}
+            .hamburger{display:flex}
+            section{padding:80px 20px}
+        }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="golden-paws (2).html" class="nav-logo">Golden Paws <span>&</span> Company</a>
+        <ul class="nav-links">
+            <li><a href="golden-paws (2).html#overview">About</a></li>
+            <li><a href="golden-paws (2).html#services">Services</a></li>
+            <li><a href="golden-paws (2).html#process">Get Started</a></li>
+            <li><a href="about-natalie.html" class="active">Meet Natalie</a></li>
+        </ul>
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="golden-paws (2).html#overview" onclick="closeMenu()">About</a>
+        <a href="golden-paws (2).html#services" onclick="closeMenu()">Services</a>
+        <a href="golden-paws (2).html#process" onclick="closeMenu()">Get Started</a>
+        <a href="about-natalie.html" onclick="closeMenu()">Meet Natalie</a>
+    </div>
+</nav>
+
+<section id="meet-natalie">
+    <div class="section-inner">
+        <div class="natalie-layout">
+            <div class="natalie-carousel reveal-left">
+                <div class="carousel-track">
+                    <div class="carousel-slide active"><img src="Selfie 1.JPEG" alt="Natalie"></div>
+                    <div class="carousel-slide"><img src="Selfie 2.jpg" alt="Natalie"></div>
+                    <div class="carousel-slide"><img src="Selfie 3.JPEG" alt="Natalie"></div>
+                </div>
+                <div class="carousel-controls">
+                    <div class="carousel-dots">
+                        <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+                        <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+                        <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="natalie-text-col reveal-right">
+                <div class="section-header">
+                    <p class="section-label">About Me</p>
+                    <h2 class="section-title">Hi, I'm Natalie!</h2>
+                    <p class="section-sub">The heart behind Golden Paws &amp; Company.</p>
+                </div>
+                <div class="natalie-bio">
+                    <p>I'm a Purdue University graduate and currently work as a Program Manager at Adobe. I've called Colorado home for the past eight years and love taking advantage of everything it has to offer&mdash;whether that's exploring in the mountains with my husband and dogs or enjoying live music or comedy shows&mdash;I'm always on the move.</p>
+                    <p>With over 10 years of pet-sitting experience through Rover and volunteer dog walking at Humane Colorado, I've had the joy of working with dogs of all breeds, ages, sizes, and personalities!</p>
+                    <p>As a *slightly* obsessed dog mom to two golden retrievers, Zion and Maggie, I know how important it is to have someone you trust caring for your pup. Whether you're at work, traveling for the day, or just need an extra hand, my goal is simple: <strong>pet services, happy tails, and total peace of mind for you.</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="reviews">
+    <div class="section-inner">
+        <div class="section-header centered reveal">
+            <p class="section-label">Kind Words</p>
+            <h2 class="section-title">What clients are saying</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal stagger-1">
+                <span class="quote-mark">&ldquo;</span>
+                <p class="testimonial-text">From the moment we first met, I instantly felt comfortable with Natalie.</p>
+                <p class="testimonial-author">Erica S.</p>
+            </div>
+            <div class="testimonial-card reveal stagger-2">
+                <span class="quote-mark">&ldquo;</span>
+                <p class="testimonial-text">Natalie was fantastic! She is highly recommended. Such a nice person and really cares.</p>
+                <p class="testimonial-author">Heather D.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand"><div class="footer-logo">Golden Paws <span>&</span> Company</div><p>Reliable Care. Wagging Results.</p></div>
+        <div class="footer-nav"><h4>Navigate</h4><a href="golden-paws (2).html#overview">Overview</a><a href="golden-paws (2).html#services">Services</a><a href="golden-paws (2).html#process">Get Started</a><a href="#reviews">Kind Words</a></div>
+        <div class="footer-nav"><h4>Connect</h4><a href="golden-paws (2).html#contact">Contact</a><a href="https://www.instagram.com/goldenpaws_andco" target="_blank" rel="noopener">Instagram</a><a href="https://personalwalkies.com/journal" target="_blank" rel="noopener">Walkies Journal</a></div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Golden Paws & Company.</span>
+        <div class="footer-social"><a href="https://www.instagram.com/goldenpaws_andco" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a></div>
+    </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open')}
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30)});
+const ro=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting)n.target.classList.add('vis')})},{threshold:0.08,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+let carouselIdx=0;
+let carouselTimer=null;
+function moveCarousel(dir){const slides=document.querySelectorAll('.carousel-slide');const dots=document.querySelectorAll('.carousel-dot');slides[carouselIdx].classList.remove('active');dots[carouselIdx].classList.remove('active');carouselIdx=(carouselIdx+dir+slides.length)%slides.length;slides[carouselIdx].classList.add('active');dots[carouselIdx].classList.add('active')}
+function goToSlide(i){const slides=document.querySelectorAll('.carousel-slide');const dots=document.querySelectorAll('.carousel-dot');slides[carouselIdx].classList.remove('active');dots[carouselIdx].classList.remove('active');carouselIdx=i;slides[carouselIdx].classList.add('active');dots[carouselIdx].classList.add('active');clearInterval(carouselTimer);carouselTimer=setInterval(()=>moveCarousel(1),8000)}
+carouselTimer=setInterval(()=>moveCarousel(1),8000);
+</script>
+</body>
+</html>

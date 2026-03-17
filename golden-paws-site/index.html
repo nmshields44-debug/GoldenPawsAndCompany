@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Golden Paws & Company — Dog Walking & Pet Care</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <meta name="description" content="Friendly, reliable dog walking, pet sitting, and care in your neighborhood. Insured and experienced handlers." />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#">Golden Paws & Company</a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="site-nav" id="site-nav">
+        <a href="#services">Services</a>
+        <a href="meet-natalie.html">Meet Natalie</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>Trusted Dog Walking & Pet Care</h1>
+          <p>Local, insured, and loving care for your pets—daily walks, pet sitting, and personalized services.</p>
+          <a class="btn btn-primary" href="#contact">Book a Walk</a>
+        </div>
+        <div class="hero-image" aria-hidden="true">
+          <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img">
+            <rect width="100%" height="100%" fill="#F6E7D7"/>
+            <g transform="translate(40,30)">
+              <circle cx="200" cy="160" r="80" fill="#E8B5A1" />
+              <path d="M280 240 q-40 30 -80 0" stroke="#7A3F2A" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <text x="40" y="340" font-size="30" fill="#7A3F2A">Golden Paws & Company</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section services">
+      <div class="container">
+        <h2>Services</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Dog Walking</h3>
+            <p>30- and 60-minute walks, group or solo—tailored to your dog's needs.</p>
+          </div>
+          <div class="card">
+            <h3>Pet Sitting</h3>
+            <p>In-home visits and overnight stays for peace of mind while you're away.</p>
+          </div>
+          <div class="card">
+            <h3>Drop-ins & Feeding</h3>
+            <p>Quick visits for feeding, playtime, and medication administration.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="pricing" class="section pricing">
+      <div class="container">
+        <h2>Pricing</h2>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <h3>Walk — 30 min</h3>
+            <p class="price">$20</p>
+          </div>
+          <div class="price-card">
+            <h3>Walk — 60 min</h3>
+            <p class="price">$35</p>
+          </div>
+          <div class="price-card">
+            <h3>Drop-in Visit</h3>
+            <p class="price">$18</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About and Reviews moved to meet-natalie.html -->
+
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2>Contact & Booking</h2>
+        <p>To book, email us at <a href="mailto:hello@goldenpaws.example">hello@goldenpaws.example</a> or use the quick form below.</p>
+
+        <form id="contact-form" action="mailto:hello@goldenpaws.example" method="post" enctype="text/plain">
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input id="name" name="name" required>
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+          <div class="form-row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </div>
+          <button class="btn" type="submit">Send Request</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Golden Paws & Company — Insured & Bonded</p>
+      <p>Follow us on <a href="#">Instagram</a> or <a href="#">Facebook</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
