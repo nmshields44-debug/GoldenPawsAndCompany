@@ -386,10 +386,10 @@
             #services{padding:56px 20px 72px}
             #process{padding:56px 20px 64px}
             #faq{padding:56px 20px 72px}
-            .hero{grid-template-columns:1fr;min-height:auto}
+            .hero{display:flex;flex-direction:column;min-height:auto}
             .hero-content{padding:0 20px 40px}
-            .hero-img-col{order:-1;padding:96px 20px 24px}
-            .hero-img-col img{max-height:24vh;max-width:52%;width:52%}
+            .hero-img-col{order:-1;margin-top:72px;padding:0 20px;min-height:32vh;display:flex;align-items:center;justify-content:center}
+            .hero-img-col img{max-height:26vh;max-width:52%;width:52%;object-fit:contain}
             .hero h1{font-size:3.5rem}
             .hero-scroll-hint{display:none}
             .form-row{grid-template-columns:1fr}
@@ -400,7 +400,9 @@
             .contact-info-card{padding:32px 24px}
             .walkies-bar{flex-direction:column;text-align:center}
             .faq-answer-inner{padding:0 20px 20px 24px}
-            .editorial-step-num{font-size:3.5rem;top:-4px}
+            .editorial-step-num{font-size:5.5rem;top:-4px;left:4px}
+            .editorial-step-content h3{font-size:0.98rem;font-weight:700;text-transform:uppercase;font-style:normal;line-height:1.8;margin-top:0;letter-spacing:0.02em}
+            .editorial-step-content p{font-size:0.98rem;font-weight:700;text-transform:uppercase;font-style:normal;line-height:1.8}
             .section-title{font-size:1.9rem}
             .process-quotes{grid-template-columns:1fr;gap:36px}
         }
@@ -411,7 +413,7 @@
             .section-title{font-size:1.7rem}
             .bento-card{padding:28px 20px}
             .pricing-price-col{font-size:2.4rem}
-            .editorial-step-num{font-size:2.6rem;top:8px}
+            .editorial-step-num{font-size:5.5rem;top:-4px;left:4px}
             .process-split{gap:32px}
             .footer-inner{padding:20px 16px}
         }
