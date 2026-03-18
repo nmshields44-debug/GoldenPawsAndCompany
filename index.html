@@ -356,7 +356,7 @@
             .about-grid{grid-template-columns:1fr;gap:48px}
             .testimonials-grid{grid-template-columns:1fr}
             .contact-layout{grid-template-columns:1fr}
-            .footer-inner{grid-template-columns:1fr;gap:32px}
+            .footer-inner{flex-direction:column;gap:20px;align-items:flex-start}
             .footer-bottom{flex-direction:column;gap:16px;text-align:center}
         }
         @media(max-width:600px){
@@ -369,11 +369,16 @@
             .nav-links{display:none}
             .nav-right .nav-get-in-touch{display:none}
             .hamburger{display:flex}
+            .nav-inner{padding:0 16px}
             .expect-area{margin:48px -20px 0;padding:48px 20px 64px}
             section{padding:80px 20px}
+            #about{padding:64px 20px 0}
+            #services{padding:56px 20px 72px}
+            #process{padding:56px 20px 64px}
+            #faq{padding:56px 20px 72px}
             .hero{grid-template-columns:1fr;min-height:auto}
-            .hero-content{padding:120px 24px 60px}
-            .hero-img-col{padding:0 24px 60px}
+            .hero-content{padding:120px 20px 48px}
+            .hero-img-col{padding:0 20px 60px}
             .hero h1{font-size:2.6rem}
             .hero-scroll-hint{display:none}
             .form-row{grid-template-columns:1fr}
@@ -383,6 +388,20 @@
             .contact-form-card{padding:28px 20px}
             .contact-info-card{padding:32px 24px}
             .walkies-bar{flex-direction:column;text-align:center}
+            .faq-answer-inner{padding:0 20px 20px 16px}
+            .editorial-step-num{font-size:3.5rem;margin-top:-28px;margin-right:-10px}
+            .section-title{font-size:1.9rem}
+        }
+        @media(max-width:480px){
+            .hero-buttons{flex-direction:column;align-items:stretch}
+            .hero .btn{text-align:center;justify-content:center}
+            .hero h1{font-size:2.1rem}
+            .section-title{font-size:1.7rem}
+            .bento-card{padding:28px 20px}
+            .pricing-price-col{font-size:2.4rem}
+            .editorial-step-num{font-size:2.6rem;margin-top:-20px;margin-right:-6px}
+            .process-split{gap:32px}
+            .footer-inner{padding:20px 16px}
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -421,7 +440,7 @@
         </div>
     </div>
     <div class="hero-img-col">
-        <img src="hero2.png" alt="">
+        <img src="Selfie 1.JPEG">
     </div>
 </section>
 
