@@ -97,11 +97,9 @@
         .mobile-menu a{display:block;padding:14px 0;text-decoration:none;color:rgba(255,255,255,0.85);font-weight:500;font-size:1rem;border-bottom:1px solid rgba(255,255,255,0.12)}
         .mobile-menu a:last-child{border-bottom:none}
 
-        .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden;background:#40607A}
+        .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:#40607A}
         .hero-bg-shapes{display:none}
-        .hero-content{padding:120px 56px 120px 64px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:1}
-        .hero-img-col{display:flex;align-items:center;justify-content:center;padding:120px 48px 120px 0}
-        .hero-img-col img{width:85%;max-height:65vh;object-fit:contain;display:block}
+        .hero-content{padding:120px 64px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:1;width:100%;max-width:900px}
         .hero-eyebrow{display:inline-block;font-size:0.82rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;opacity:0;animation:heroUp 0.8s 0.2s cubic-bezier(0.16,1,0.3,1) forwards}
         .hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,5.2rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:28px;letter-spacing:-0.03em;opacity:0;animation:heroUp 1s 0.2s cubic-bezier(0.16,1,0.3,1) forwards}
         .hero h1 .h1-italic{font-style:italic;color:#CCDDFF;font-weight:700}
@@ -143,6 +141,7 @@
         /* ABOUT + OVERVIEW — Merged */
         #about{background:#ffffff;padding:72px 32px 0;position:relative}
         .about-layout{text-align:center;max-width:920px;margin:0 auto}
+        .about-hero-img{display:block;margin:28px auto 28px;width:50%;max-width:440px;object-fit:contain}
         .about-opener{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1.15;margin-bottom:24px;letter-spacing:-0.02em}
         .about-opener em{font-style:italic;color:var(--primary-deep)}
         .about-body p{font-size:1.05rem;line-height:1.9;color:var(--text-body);margin-bottom:18px}
@@ -386,10 +385,9 @@
             #services{padding:56px 20px 72px}
             #process{padding:56px 20px 64px}
             #faq{padding:56px 20px 72px}
-            .hero{display:flex;flex-direction:column;min-height:auto}
-            .hero-content{padding:0 20px 40px}
-            .hero-img-col{order:-1;margin-top:72px;padding:0 20px;min-height:32vh;display:flex;align-items:center;justify-content:center}
-            .hero-img-col img{max-height:26vh;max-width:52%;width:52%;object-fit:contain}
+            .hero{min-height:auto}
+            .hero-content{padding:80px 20px 48px}
+            .about-hero-img{width:60%;max-width:260px}
             .hero h1{font-size:3.5rem}
             .hero-scroll-hint{display:none}
             .form-row{grid-template-columns:1fr}
@@ -400,9 +398,9 @@
             .contact-info-card{padding:32px 24px}
             .walkies-bar{flex-direction:column;text-align:center}
             .faq-answer-inner{padding:0 20px 20px 24px}
-            .editorial-step-num{font-size:5.5rem;top:-4px;left:4px}
+            .editorial-step-num{font-size:5.5rem;top:-14px;left:4px}
             .editorial-step-content h3{font-size:0.98rem;font-weight:700;text-transform:uppercase;font-style:normal;line-height:1.8;margin-top:0;letter-spacing:0.02em}
-            .editorial-step-content p{font-size:0.98rem;font-weight:700;text-transform:uppercase;font-style:normal;line-height:1.8}
+            .editorial-step-content p{font-size:0.98rem;font-weight:700;text-transform:none;font-style:normal;line-height:1.8}
             .section-title{font-size:1.9rem}
             .process-quotes{grid-template-columns:1fr;gap:36px}
         }
@@ -413,7 +411,7 @@
             .section-title{font-size:1.7rem}
             .bento-card{padding:28px 20px}
             .pricing-price-col{font-size:2.4rem}
-            .editorial-step-num{font-size:5.5rem;top:-4px;left:4px}
+            .editorial-step-num{font-size:5.5rem;top:-14px;left:4px}
             .process-split{gap:32px}
             .footer-inner{padding:20px 16px}
         }
@@ -453,9 +451,6 @@
             <a href="#process" class="btn btn-primary">Schedule Meet & Greet <span class="arrow">&rarr;</span></a>
         </div>
     </div>
-    <div class="hero-img-col">
-        <img src="hero2.png">
-    </div>
 </section>
 
 <section id="about">
@@ -466,6 +461,7 @@
             <div class="about-body reveal">
                 <p>Hi, I’m Natalie — the dog lover behind Golden Paws & Company!</p>
                 <p>With over 10 years of pet-sitting experience through Rover, as well as volunteer dog walking at Humane Colorado, I’ve had the joy of working with dogs of all breeds, ages, sizes, and personalities. As a <em>slightly</em> obsessed dog mom to two Golden Retrievers, Zion and Maggie, I know firsthand how important it is to have someone you trust caring for your pup.</p>
+                <img src="hero2.png" alt="Natalie with dogs" class="about-hero-img">
                 <p>Originally from Indianapolis, I’m a proud Purdue graduate and currently work as a Program Manager at Adobe. I’ve called Colorado home for the past eight years and love all the adventures it has to offer. Above all, I’m trustworthy, compassionate, and genuinely love getting to know each dog’s unique personality.</p>
                 <p><strong>My goal is simple: provide reliable care, plenty of exercise and enrichment, and total peace of mind for you</strong>.</p>
 
