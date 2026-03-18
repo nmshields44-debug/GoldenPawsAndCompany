@@ -377,8 +377,9 @@
             #process{padding:56px 20px 64px}
             #faq{padding:56px 20px 72px}
             .hero{grid-template-columns:1fr;min-height:auto}
-            .hero-content{padding:120px 20px 48px}
-            .hero-img-col{padding:0 20px 60px}
+            .hero-content{padding:0 20px 32px}
+            .hero-img-col{order:-1;padding:80px 20px 12px}
+            .hero-img-col img{max-height:38vh}
             .hero h1{font-size:2.6rem}
             .hero-scroll-hint{display:none}
             .form-row{grid-template-columns:1fr}
@@ -393,8 +394,8 @@
             .section-title{font-size:1.9rem}
         }
         @media(max-width:480px){
-            .hero-buttons{flex-direction:column;align-items:stretch}
-            .hero .btn{text-align:center;justify-content:center}
+            .hero-buttons{gap:10px}
+            .hero .btn{padding:9px 12px;font-size:0.78rem}
             .hero h1{font-size:2.1rem}
             .section-title{font-size:1.7rem}
             .bento-card{padding:28px 20px}
