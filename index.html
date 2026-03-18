@@ -148,7 +148,7 @@
         .about-body p{font-size:1.05rem;line-height:1.9;color:var(--text-body);margin-bottom:18px}
         .about-body p:last-child{margin-bottom:0}
         .about-body em{font-style:italic}
-        .expect-area{background:transparent;margin:16px -32px 0;padding:36px 32px 60px}
+        .expect-area{background:transparent;margin:16px -32px 0;padding:0 32px 60px}
 
         /* MEET NATALIE */
         #meet-natalie{background:#f5f5f5;padding:120px 32px}
@@ -160,11 +160,11 @@
         .meet-quote-mark{font-family:'Playfair Display',serif;font-size:9rem;line-height:1;color:#FFE566;position:absolute;top:-16px;left:0;z-index:0;font-weight:700;pointer-events:none;user-select:none}
         .meet-quote-text{font-size:1.1rem;line-height:1.8;color:var(--text);font-style:italic;position:relative;z-index:1}
         .meet-quote-author{font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:14px;position:relative;z-index:1}
-        .expect-divider{text-align:center;margin-bottom:48px}
+        .expect-divider{text-align:center;margin-bottom:0}
         .expect-divider-title{font-family:Playfair Display;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;color:var(--text);letter-spacing:-0.02em;line-height:1.2}
 
         /* FEATURE CARDS — Overview */
-        .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;max-width:900px;margin-left:auto;margin-right:auto}
+        .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0;max-width:900px;margin-left:auto;margin-right:auto}
         .bento-card{border-radius:var(--radius);padding:36px 28px;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s;background:var(--white);border:1px solid rgba(154,172,236,0.15);box-shadow:var(--shadow-sm)}
         .bento-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
         .bento-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;background:#f5f5f5;color:#CCDDFF}
@@ -196,7 +196,7 @@
         .faq-icon{flex-shrink:0;width:26px;height:26px;border:1.5px solid rgba(64,96,122,0.3);border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;transition:all 0.3s;color:var(--text)}
         .faq-item.open .faq-icon{background:var(--primary);border-color:var(--primary);color:#fff;transform:rotate(45deg)}
         .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
-        .faq-answer-inner{padding:0 72px 20px 26px;font-size:0.95rem;color:var(--text-muted);line-height:1.85}
+        .faq-answer-inner{padding:0 72px 20px 24px;font-size:0.95rem;color:var(--text-muted);line-height:1.85}
         .faq-answer-inner a{color:var(--primary-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
         .faq-item.open .faq-answer{max-height:400px}
         .faq-item.open .faq-answer.faq-answer--map{max-height:700px}
@@ -351,7 +351,7 @@
         @media(max-width:900px){
             .about-layout{grid-template-columns:1fr;gap:32px}
             .about-photo-col{max-height:360px}
-            .expect-area{margin:56px -32px 0;padding:56px 32px 72px}
+            .expect-area{margin:56px -32px 0;padding:0 32px 72px}
             .natalie-layout{grid-template-columns:1fr}
             .about-grid{grid-template-columns:1fr;gap:48px}
             .testimonials-grid{grid-template-columns:1fr}
@@ -363,14 +363,14 @@
             .bento-grid{grid-template-columns:1fr}
             .pricing-row{flex-direction:column;align-items:flex-start;gap:12px;padding:32px 0}
             .pricing-row:hover{padding-left:0}
-            .pricing-price-col{font-size:2.8rem}
+            .pricing-price-col{font-size:2.8rem;padding-left:30px}
         }
         @media(max-width:768px){
             .nav-links{display:none}
             .nav-right .nav-get-in-touch{display:none}
             .hamburger{display:flex}
             .nav-inner{padding:0 16px}
-            .expect-area{margin:48px -20px 0;padding:48px 20px 64px}
+            .expect-area{margin:48px -20px 0;padding:0 20px 64px}
             section{padding:80px 20px}
             #about{padding:64px 20px 0}
             #services{padding:56px 20px 72px}
@@ -388,7 +388,7 @@
             .contact-form-card{padding:28px 20px}
             .contact-info-card{padding:32px 24px}
             .walkies-bar{flex-direction:column;text-align:center}
-            .faq-answer-inner{padding:0 20px 20px 16px}
+            .faq-answer-inner{padding:0 20px 20px 24px}
             .editorial-step-num{font-size:3.5rem;margin-top:-28px;margin-right:-10px}
             .section-title{font-size:1.9rem}
         }
@@ -440,7 +440,7 @@
         </div>
     </div>
     <div class="hero-img-col">
-        <img src="Selfie 1.JPEG">
+        <img src="hero2.png">
     </div>
 </section>
 
