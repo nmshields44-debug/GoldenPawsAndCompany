@@ -216,8 +216,8 @@
         /* EDITORIAL STEPS — Process split layout */
         .process-split{display:grid;grid-template-columns:2fr 3fr;gap:60px;margin-top:68px;align-items:center}
         .process-steps-col{display:flex;flex-direction:column;gap:40px}
-        .editorial-step{position:relative;overflow:hidden;padding:28px 0 0}
-        .editorial-step-num{font-family:'Playfair Display',serif;font-size:5.5rem;font-weight:800;color:#f5f5f5;line-height:0.82;letter-spacing:-0.06em;position:absolute;top:-4px;left:4px;z-index:0;pointer-events:none;user-select:none}
+        .editorial-step{position:relative;padding:28px 0 0 24px}
+        .editorial-step-num{font-family:'Playfair Display',serif;font-size:5.5rem;font-weight:800;color:#f5f5f5;line-height:0.82;letter-spacing:-0.06em;position:absolute;top:-30px;left:-8px;z-index:0;pointer-events:none;user-select:none}
         .editorial-step-content{position:relative;z-index:1;text-align:left}
         .editorial-step-content h3{font-family:Playfair Display;font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:10px;margin-top:10px}
         .editorial-step-content p{font-size:0.95rem;color:var(--text-muted);line-height:1.85}
@@ -388,8 +388,8 @@
             #faq{padding:56px 20px 72px}
             .hero{grid-template-columns:1fr;min-height:auto}
             .hero-content{padding:0 20px 40px}
-            .hero-img-col{order:-1;padding:80px 20px 12px}
-            .hero-img-col img{max-height:35vh;max-width:65%;width:65%}
+            .hero-img-col{order:-1;padding:96px 20px 24px}
+            .hero-img-col img{max-height:24vh;max-width:52%;width:52%}
             .hero h1{font-size:3.5rem}
             .hero-scroll-hint{display:none}
             .form-row{grid-template-columns:1fr}
@@ -400,7 +400,7 @@
             .contact-info-card{padding:32px 24px}
             .walkies-bar{flex-direction:column;text-align:center}
             .faq-answer-inner{padding:0 20px 20px 24px}
-            .editorial-step-num{font-size:3.5rem}
+            .editorial-step-num{font-size:3.5rem;top:-4px}
             .section-title{font-size:1.9rem}
             .process-quotes{grid-template-columns:1fr;gap:36px}
         }
@@ -411,7 +411,7 @@
             .section-title{font-size:1.7rem}
             .bento-card{padding:28px 20px}
             .pricing-price-col{font-size:2.4rem}
-            .editorial-step-num{font-size:2.6rem}
+            .editorial-step-num{font-size:2.6rem;top:8px}
             .process-split{gap:32px}
             .footer-inner{padding:20px 16px}
         }
@@ -552,28 +552,28 @@
         <div class="process-split">
             <div class="process-steps-col">
                 <div class="editorial-step reveal stagger-1">
-                    <div class="editorial-step-num">01</div>
+                    <div class="editorial-step-num">1</div>
                     <div class="editorial-step-content">
                         <h3>Get in Touch</h3>
                         <p>Introduce yourself and your dog by filling out the contact form to request a meet & greet.</p>
                     </div>
                 </div>
                 <div class="editorial-step reveal stagger-2">
-                    <div class="editorial-step-num">02</div>
+                    <div class="editorial-step-num">2</div>
                     <div class="editorial-step-content">
                         <h3>Meet &amp; Greet</h3>
                         <p>Let your pup get comfortable with sniffs, pets, and a friendly introduction before our first hang.</p>
                     </div>
                 </div>
                 <div class="editorial-step reveal stagger-3">
-                    <div class="editorial-step-num">03</div>
+                    <div class="editorial-step-num">3</div>
                     <div class="editorial-step-content">
                         <h3>Create Walkies Profile</h3>
                         <p><a href="https://personalwalkies.com/journal" target="_blank" rel="noopener">Download app &rarr;</a> for bookings, payments, and rea-time updates at your fingertips.</p>
                     </div>
                 </div>
                 <div class="editorial-step reveal stagger-4">
-                    <div class="editorial-step-num">04</div>
+                    <div class="editorial-step-num">4</div>
                     <div class="editorial-step-content">
                         <h3>Schedule Walk or Visit</h3>
                         <p>Book your dog’s new favorite part of the day and let the adventures begin!</p>
