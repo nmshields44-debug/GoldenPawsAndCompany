@@ -139,7 +139,7 @@
         .section-sub{font-size:1.1rem;color:var(--text-muted);margin-top:16px;max-width:540px;line-height:1.8}
         .section-header.centered .section-sub{margin-left:auto;margin-right:auto}
 
-        .section-logo{display:block;height:48px;width:auto;margin:0 auto 20px;opacity:0.8}
+        .section-logo{display:block;height:64px;width:auto;margin:0 auto 20px;opacity:0.8}
         /* ABOUT + OVERVIEW — Merged */
         #about{background:#ffffff;padding:72px 32px 0;position:relative}
         .about-layout{text-align:center;max-width:920px;margin:0 auto}
@@ -228,6 +228,16 @@
         .process-form-col .form-submit{background:#40607A;color:var(--white)}
         .process-form-col .form-submit:hover{background:#344f66;box-shadow:0 12px 32px rgba(64,96,122,0.35)}
         .process-form-col .form-submit:disabled{background:#B8C4F0;cursor:not-allowed;transform:none!important;box-shadow:none!important;color:var(--white)}
+
+        #testimonials{background:#40607A;padding:72px 32px}
+        .process-quotes{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1080px;margin:0 auto}
+        .process-quote-card{position:relative;overflow:hidden;padding:28px 24px 24px}
+        .process-quote-bg{font-family:'Playfair Display',serif;font-size:5.5rem;font-weight:800;line-height:0.82;color:rgba(255,255,255,0.18);position:absolute;top:-4px;left:4px;z-index:0;pointer-events:none;user-select:none;letter-spacing:-0.06em}
+        .testimonials-header{text-align:center;margin-bottom:48px}
+        .testimonials-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;color:#fff;letter-spacing:-0.02em;line-height:1.2}
+        .process-quote-text{font-family:'Playfair Display',serif;font-size:0.98rem;line-height:1.8;color:#fff;font-style:normal;font-weight:700;text-transform:uppercase;position:relative;z-index:1;margin-bottom:18px}
+        .process-quote-author{font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-style:italic;color:rgba(255,255,255,0.8);position:relative;z-index:1;display:flex;align-items:center;gap:10px}
+        .process-quote-author::before{content:'';width:20px;height:2px;background:#CCDDFF;border-radius:2px;flex-shrink:0}
 
         .natalie-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
         .natalie-carousel{position:relative}
@@ -377,10 +387,10 @@
             #process{padding:56px 20px 64px}
             #faq{padding:56px 20px 72px}
             .hero{grid-template-columns:1fr;min-height:auto}
-            .hero-content{padding:0 20px 32px}
-            .hero-img-col{order:-1;padding:80px 20px 12px}
+            .hero-content{padding:88px 20px 20px}
+            .hero-img-col{padding:8px 20px 32px}
             .hero-img-col img{max-height:38vh}
-            .hero h1{font-size:2.6rem}
+            .hero h1{font-size:3rem}
             .hero-scroll-hint{display:none}
             .form-row{grid-template-columns:1fr}
             .process-step{gap:20px}
@@ -392,11 +402,12 @@
             .faq-answer-inner{padding:0 20px 20px 24px}
             .editorial-step-num{font-size:3.5rem;margin-top:-28px;margin-right:-10px}
             .section-title{font-size:1.9rem}
+            .process-quotes{grid-template-columns:1fr;gap:36px}
         }
         @media(max-width:480px){
             .hero-buttons{gap:10px}
             .hero .btn{padding:9px 12px;font-size:0.78rem}
-            .hero h1{font-size:2.1rem}
+            .hero h1{font-size:2.5rem}
             .section-title{font-size:1.7rem}
             .bento-card{padding:28px 20px}
             .pricing-price-col{font-size:2.4rem}
@@ -447,7 +458,7 @@
 
 <section id="about">
     <div class="section-inner">
-        <img src="hero_right.png" alt="" class="section-logo">
+        <img src="Logo7.png" alt="" class="section-logo">
         <div class="about-layout">
             <p class="about-opener reveal">Your Dog's New Bestie</p>
             <div class="about-body reveal">
@@ -486,7 +497,7 @@
 
 <section id="services">
     <div class="section-inner">
-        <img src="hero_right.png" alt="" class="section-logo">
+        <img src="Logo7.png" alt="" class="section-logo">
         <div class="section-header centered reveal">
             <h2 class="section-title">Services & Rates</h2>
             <p class="section-sub">Options that fit you and your pup's needs.</p>
@@ -533,7 +544,7 @@
 
 <section id="process">
     <div class="section-inner">
-        <img src="hero_right.png" alt="" class="section-logo">
+        <img src="Logo7.png" alt="" class="section-logo">
         <div class="section-header centered reveal">
             <h2 class="section-title">From Hello to Best Buds</h2>
             <p class="section-sub">A few easy steps to get started.</p>
@@ -591,10 +602,9 @@
     </div>
 </section>
 
-
 <section id="faq">
     <div class="section-inner">
-        <img src="hero_right.png" alt="" class="section-logo">
+        <img src="Logo7.png" alt="" class="section-logo">
         <div class="section-header centered reveal">
             <h2 class="section-title">Frequently Asked Questions</h2>
         </div>
@@ -655,6 +665,26 @@
                 </div>
                 <div class="faq-answer"><div class="faq-answer-inner">Two dogs from the <strong>same household</strong> can be walked at once on a case-by-case basis. Otherwise, only one dog will be walked at a time, which allows us to walk at their pace and allows them to go wherever their sniffs take them! Additional dog rates are $10 per additional dog for walking (and require special approval) and $5 per additional dog for drop-in visits.</div></div>
             </div>            
+        </div>
+    </div>
+</section>
+
+<section id="testimonials">
+    <div style="max-width:1080px;margin:0 auto">
+        <div class="testimonials-header reveal">
+            <h2>Happy Clients</h2>
+        </div>
+    </div>
+    <div class="process-quotes">
+        <div class="process-quote-card reveal stagger-1">
+            <div class="process-quote-bg">"</div>
+            <p class="process-quote-text">From the moment we first met, I instantly felt comfortable with Natalie.</p>
+            <div class="process-quote-author">Erica S.</div>
+        </div>
+        <div class="process-quote-card reveal stagger-2">
+            <div class="process-quote-bg">"</div>
+            <p class="process-quote-text">Natalie was fantastic! She is highly recommended. Such a nice person and really cares.</p>
+            <div class="process-quote-author">Heather D.</div>
         </div>
     </div>
 </section>
