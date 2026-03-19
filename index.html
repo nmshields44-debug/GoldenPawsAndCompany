@@ -226,9 +226,9 @@
         .process-form-col .contact-form-card{background:var(--bg-pale);border-radius:var(--radius);padding:44px;border:1px solid rgba(143,163,232,0.2)}
         .process-form-col .form-row{grid-template-columns:1fr 1fr}
         .form-card-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--text);margin-bottom:24px}
-        .process-form-col .form-submit{background:#40607A;color:var(--white)}
-        .process-form-col .form-submit:hover{background:#344f66;box-shadow:0 12px 32px rgba(64,96,122,0.35)}
-        .process-form-col .form-submit:disabled{background:#B8C4F0;cursor:not-allowed;transform:none!important;box-shadow:none!important;color:var(--white)}
+        .process-form-col .form-submit{background:#B8C4F0;color:var(--white)}
+        .process-form-col .form-submit:hover{background:#a3b2e8;box-shadow:0 12px 32px rgba(184,196,240,0.35)}
+        .process-form-col .form-submit:disabled{background:#40607A;cursor:not-allowed;transform:none!important;box-shadow:none!important;color:var(--white)}
 
         #testimonials{background:#40607A;padding:72px 32px}
         .process-quotes{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1080px;margin:0 auto}
@@ -592,10 +592,10 @@
                 <div class="contact-form-card">
                     <div id="pFormContent">
                         <h3 class="form-card-title">Request Meet &amp; Greet</h3>
-                        <div class="form-row"><div class="form-group"><label for="p-ownerName">Your Name *</label><input type="text" id="p-ownerName" required></div><div class="form-group"><label for="p-dogName">Dog's Name *</label><input type="text" id="p-dogName" required></div></div>
+                        <div class="form-row"><div class="form-group"><label for="p-ownerName">Full Name *</label><input type="text" id="p-ownerName" required></div><div class="form-group"><label for="p-dogName">Dog's Name *</label><input type="text" id="p-dogName" required></div></div>
                         <div class="form-row"><div class="form-group"><label for="p-email">Email *</label><input type="email" id="p-email" required></div><div class="form-group"><label for="p-phone">Phone *</label><input type="tel" id="p-phone"></div></div>
                         <div class="form-group"><label for="p-neighborhood">Address *</label><input type="text" id="p-neighborhood"></div>
-                        <div class="form-row"><div class="form-group"><label for="p-service">Service Interested In *</label><select id="p-service" required><option value="" disabled selected>Select a service</option><option>Dog Walking</option><option>Drop-in Visits</option><option>Dog Walking &amp; Drop-in Visits</option></select></div><div class="form-group"><label for="p-date">Preferred Date *</label><input type="text" id="p-date" placeholder="Select a date" readonly></div></div>
+                        <div class="form-row"><div class="form-group"><label for="p-service">Service(s) Interested In *</label><select id="p-service" required><option value="" disabled selected>Select a service</option><option>Dog Walking</option><option>Drop-in Visits</option><option>Dog Walking &amp; Drop-in Visits</option></select></div><div class="form-group"><label for="p-date">Preferred Date *</label><input type="text" id="p-date" placeholder="Select a date" readonly></div></div>
                         <div class="form-group"><label for="p-reason">Primary Reason for Services *</label><select id="p-reason"><option value="" disabled selected>Select a reason </option><option value="quality">Quality of life — more enrichment, exercise, routine, or socialization</option><option value="schedule">Schedule-based — long hours, returning to office, or work travel</option><option value="transition">Life transition — recently moved, new baby, or recovering from surgery</option><option value="age">Puppy or senior dog — more frequent potty breaks or special care</option></select></div>
                         <button class="form-submit" id="p-submitBtn" onclick="submitProcessForm()" disabled>Submit Request</button>
                     </div>
@@ -629,7 +629,7 @@
                     <span class="faq-question-text">What areas do you serve?</span>
                     <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </div>
-                <div class="faq-answer faq-answer--map"><div class="faq-answer-inner">Golden Paws & Company currently serves the Aurora Knolls – Hutchinson Heights neighborhood and surrounding areas within a 2-mile radius. If you’re nearby and unsure whether you fall within the service area, feel free to <a href="mailto:GoldenPaws_AndCo@gmail.com">reach out</a> — I’m always happy to check!<div id="service-area-map" class="faq-service-map"></div></div></div>
+                <div class="faq-answer faq-answer--map"><div class="faq-answer-inner">Golden Paws & Company currently serves the Aurora Knolls – Hutchinson Heights neighborhood and surrounding areas within a 2-mile radius. If you’re nearby and unsure whether you fall within the service area, feel free to <a href="mailto:GoldenPaws.AndCo@gmail.com">reach out</a> — I’m always happy to check!<div id="service-area-map" class="faq-service-map"></div></div></div>
             </div>            
             <div class="faq-item reveal stagger-3">
                 <div class="faq-question" onclick="toggleFaq(this)">
@@ -650,7 +650,7 @@
                     <span class="faq-question-text">Do you offer discounts?</span>
                     <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </div>
-                <div class="faq-answer"><div class="faq-answer-inner">Yes! Receive a 10% discount when booking 3-4 walks or visits at a time and a 15% discount when booking 5-7 walks or visits at a time. If you're interested in receiving a multi-pack service discount, <a href="mailto:GoldenPaws_AndCo@gmail.com">send Natalie an email</a>!</div></div>
+                <div class="faq-answer"><div class="faq-answer-inner">Yes! Receive a 10% discount when booking 3-4 walks or visits at a time and a 15% discount when booking 5-7 walks or visits at a time. If you're interested in receiving a multi-pack service discount, <a href="mailto:GoldenPaws.AndCo@gmail.com">send Natalie an email</a>!</div></div>
             </div>
                         <div class="faq-item reveal stagger-6">
                 <div class="faq-question" onclick="toggleFaq(this)">
@@ -702,7 +702,7 @@
         <div class="footer-brand"><div class="footer-logo">Golden Paws <span>&</span> Company</div></div>
         <div class="footer-icons-row">
         <span class="footer-mobile-label">Stay Connected</span>
-        <a href="mailto:GoldenPaws_AndCo@gmail.com" class="footer-social" aria-label="Email Golden Paws &amp; Company"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
+        <a href="mailto:GoldenPaws.AndCo@gmail.com" class="footer-social" aria-label="Email Golden Paws &amp; Company"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
         <a href="https://www.instagram.com/goldenpaws_andco" target="_blank" rel="noopener" class="footer-social"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
         </div>
     </div>
@@ -728,7 +728,29 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').fo
 function submitForm(){const r=['ownerName','email','dogName','service'];let v=true;r.forEach(id=>{const el=document.getElementById(id);if(!el.value.trim()){el.style.borderColor='#e74c3c';v=false;el.addEventListener('input',()=>{el.style.borderColor=''},{ once:true})}});if(!v)return;document.getElementById('formContent').style.display='none';document.getElementById('formSuccess').classList.add('show')}
 function checkProcessForm(){const ids=['p-ownerName','p-dogName','p-service','p-email','p-phone','p-neighborhood'];const btn=document.getElementById('p-submitBtn');if(!btn)return;btn.disabled=!ids.every(id=>{const el=document.getElementById(id);return el&&el.value.trim()!==''&&el.value!==''})}
 document.addEventListener('DOMContentLoaded',()=>{['p-ownerName','p-dogName','p-service','p-email','p-phone','p-neighborhood'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',checkProcessForm)});flatpickr('#p-date',{dateFormat:'M j, Y',minDate:'today',disableMobile:true});['p-service','p-reason'].forEach(id=>{const sel=document.getElementById(id);if(!sel)return;const upd=()=>sel.classList.toggle('placeholder-active',!sel.value||sel.value==='');upd();sel.addEventListener('change',upd)})});
-function submitProcessForm(){const ids=['p-ownerName','p-dogName','p-service','p-email','p-phone','p-neighborhood'];let valid=true;ids.forEach(id=>{const el=document.getElementById(id);if(!el||!el.value.trim()||el.value===''){if(el)el.style.borderColor='#e74c3c';valid=false;if(el)el.addEventListener('input',()=>{el.style.borderColor=''},{ once:true})}});if(!valid)return;const params={owner_name:document.getElementById('p-ownerName').value,dog_name:document.getElementById('p-dogName').value,service:document.getElementById('p-service').value,reply_to:document.getElementById('p-email').value,phone:document.getElementById('p-phone').value,address:document.getElementById('p-neighborhood').value,preferred_date:document.getElementById('p-date').value,primary_reason:document.getElementById('p-reason').value};emailjs.send('service_tq64sur','template_58xo4yo',params).catch(err=>console.warn('Email send failed:',err));document.getElementById('pFormContent').style.display='none';document.getElementById('pFormSuccess').classList.add('show')}
+function submitProcessForm(){
+  const ids=['p-ownerName','p-dogName','p-service','p-email','p-phone','p-neighborhood'];
+  let valid=true;
+  ids.forEach(id=>{const el=document.getElementById(id);if(!el||!el.value.trim()||el.value===''){if(el)el.style.borderColor='#e74c3c';valid=false;if(el)el.addEventListener('input',()=>{el.style.borderColor=''},{ once:true})}});
+  if(!valid)return;
+  const getText=id=>{const el=document.getElementById(id);if(!el)return'';if(el.tagName==='SELECT'&&el.selectedIndex>0)return el.options[el.selectedIndex].text;return el.value.trim();};
+  const params={
+    owner_name:getText('p-ownerName'),
+    dog_name:getText('p-dogName'),
+    service:getText('p-service'),
+    reply_to:getText('p-email'),
+    phone:getText('p-phone'),
+    address:getText('p-neighborhood'),
+    preferred_date:getText('p-date')||'Not specified',
+    primary_reason:getText('p-reason')||'Not specified',
+    to_email:'GoldenPaws.AndCo@gmail.com'
+  };
+  const btn=document.getElementById('p-submitBtn');
+  btn.disabled=true;btn.textContent='Sending…';
+  emailjs.send('service_tq64sur','template_58xo4yo',params)
+    .then(()=>{document.getElementById('pFormContent').style.display='none';document.getElementById('pFormSuccess').classList.add('show');})
+    .catch(err=>{console.warn('Email send failed:',err);btn.disabled=false;btn.textContent='Submit Request';alert('Something went wrong. Please try again or email us directly at GoldenPaws.AndCo@gmail.com');});
+}
 let carouselIdx=0;
 let carouselTimer=null;
 function moveCarousel(dir){const slides=document.querySelectorAll('.carousel-slide');const dots=document.querySelectorAll('.carousel-dot');slides[carouselIdx].classList.remove('active');dots[carouselIdx].classList.remove('active');carouselIdx=(carouselIdx+dir+slides.length)%slides.length;slides[carouselIdx].classList.add('active');dots[carouselIdx].classList.add('active')}
