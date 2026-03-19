@@ -749,7 +749,7 @@ function submitProcessForm(){
   btn.disabled=true;btn.textContent='Sending…';
   emailjs.send('service_tq64sur','template_58xo4yo',params)
     .then(()=>{document.getElementById('pFormContent').style.display='none';document.getElementById('pFormSuccess').classList.add('show');})
-    .catch(err=>{console.warn('Email send failed:',err);btn.disabled=false;btn.textContent='Submit Request';alert('Something went wrong. Please try again or email us directly at GoldenPaws.AndCo@gmail.com');});
+    .catch(err=>{const msg=err?.text||err?.message||JSON.stringify(err);console.warn('EmailJS error:',msg);btn.disabled=false;btn.textContent='Submit Request';alert('Submission failed: '+msg+'\n\nPlease email directly: GoldenPaws.AndCo@gmail.com');});
 }
 let carouselIdx=0;
 let carouselTimer=null;
