@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Paws & Company | Dog Walking & Drop-In Visits</title>
+    <meta name="description" content="Golden Paws & Company — Reliable dog walking and drop-in visit services.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        :root {
+            --primary: #9AACEC;
+            --primary-deep: #8299d9;
+            --primary-muted: #B8C4F0;
+            --bg: #CCDDFF;
+            --bg-light: #f5f5f5;
+            --bg-pale: #f5f5f5;
+            --accent: #8EAD86;
+            --accent-hover: #E6BC00;
+            --accent-light: #FFF7CC;
+            --green: #FFD10D;
+            --green-light: #FFD10D;
+            --rare: #F7EDEE;
+            --white: #FFFFFF;
+            --text: #40607A;
+            --text-body: #40607A;
+            --text-muted: #40607A;
+            --shadow-sm: 0 2px 12px rgba(26,43,95,0.07);
+            --shadow-md: 0 8px 32px rgba(26,43,95,0.09);
+            --shadow-lg: 0 16px 48px rgba(26,43,95,0.12);
+            --shadow-glow: 0 0 60px rgba(143,163,232,0.3);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --radius-xs: 8px;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif}
+        html{scroll-behavior:smooth;scroll-padding-top:80px}
+        body{font-family:Playfair Display;color:var(--text-body);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+        body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+        .reveal{opacity:0;transform:translateY(50px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+        .reveal.vis{opacity:1;transform:translateY(0)}
+        .reveal-left{opacity:0;transform:translateX(-60px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+        .reveal-left.vis{opacity:1;transform:translateX(0)}
+        .reveal-right{opacity:0;transform:translateX(60px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+        .reveal-right.vis{opacity:1;transform:translateX(0)}
+        .reveal-scale{opacity:0;transform:scale(0.9);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+        .reveal-scale.vis{opacity:1;transform:scale(1)}
+        .stagger-1{transition-delay:0.1s}.stagger-2{transition-delay:0.2s}.stagger-3{transition-delay:0.3s}.stagger-4{transition-delay:0.4s}.stagger-5{transition-delay:0.5s}
+
+        .float-shape{position:absolute;border-radius:50%;pointer-events:none;will-change:transform}
+        @keyframes floatA{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(15px,-20px) rotate(5deg)}66%{transform:translate(-10px,10px) rotate(-3deg)}}
+        @keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,-15px)}}
+        @keyframes floatC{0%,100%{transform:translate(0,0)}25%{transform:translate(10px,-10px)}75%{transform:translate(-8px,12px)}}
+
+        nav{position:fixed;top:0;width:100%;z-index:100;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);padding:8px 0;background:#40607A}
+        nav.scrolled{background:var(--white);box-shadow:0 2px 12px rgba(26,43,95,0.1);padding:0}
+        nav.scrolled .nav-logo{color:var(--text)}
+        nav.scrolled .nav-logo span{color:var(--text)}
+        nav.scrolled .nav-links a{color:var(--text-muted)}
+        nav.scrolled .nav-links a:hover{color:var(--text);background:rgba(143,163,232,0.12)}
+        nav.scrolled .hamburger span{background:var(--text)}
+        nav.scrolled .mobile-menu{background:var(--white)}
+        nav.scrolled .mobile-menu a{color:var(--text-muted);border-bottom-color:rgba(143,163,232,0.15)}
+        .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:72px;position:relative}
+        .nav-center-logo{height:40px;width:auto}
+        .nav-logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;color:var(--white);text-decoration:none;letter-spacing:-0.01em;text-align:left}
+        .nav-right{display:flex;align-items:center;gap:8px}
+        .nav-right .nav-get-in-touch{text-decoration:none;color:rgba(255,255,255,0.78);font-size:0.88rem;font-weight:500;padding:8px 16px;border-radius:50px;transition:all 0.3s}
+        .nav-right .nav-get-in-touch:hover{color:var(--white);background:rgba(255,255,255,0.12)}
+        .nav-right .nav-get-in-touch.active{color:var(--white);background:rgba(255,255,255,0.18);font-weight:700}
+        nav.scrolled .nav-right .nav-get-in-touch{color:var(--text-muted)}
+        nav.scrolled .nav-right .nav-get-in-touch:hover{color:var(--text);background:rgba(143,163,232,0.12)}
+        nav.scrolled .nav-right .nav-get-in-touch.active{color:var(--text);background:rgba(143,163,232,0.18);font-weight:700}
+        .nav-ig{display:flex;align-items:center;color:rgba(255,255,255,0.78);transition:color 0.3s;padding:6px}
+        .nav-ig:hover{color:var(--white)}
+        nav.scrolled .nav-ig{color:var(--text-muted)}
+        nav.scrolled .nav-ig:hover{color:var(--text)}
+        .nav-logo span{color:var(--white)}
+        .nav-links{display:flex;gap:8px;list-style:none;align-items:center}
+        .nav-links a{text-decoration:none;color:rgba(255,255,255,0.78);font-size:0.88rem;font-weight:500;padding:8px 16px;border-radius:50px;transition:all 0.3s}
+        .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.12)}
+        .nav-links a.active{color:var(--white);background:rgba(255,255,255,0.18);font-weight:700}
+        nav.scrolled .nav-links a.active{color:var(--text);background:rgba(143,163,232,0.18);font-weight:700}
+        .nav-cta{background:var(--accent)!important;color:#1A2B5F!important;padding:10px 24px!important;font-weight:700!important}
+        .nav-cta:hover{background:var(--accent-hover)!important;transform:translateY(-1px)}
+
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+        .hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s}
+        .mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:#40607A;padding:16px 32px 24px}
+        .mobile-menu.open{display:block}
+        .mobile-menu a{display:block;padding:14px 0;text-decoration:none;color:rgba(255,255,255,0.85);font-weight:500;font-size:1rem;border-bottom:1px solid rgba(255,255,255,0.12)}
+        .mobile-menu a:last-child{border-bottom:none}
+
+        .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden;background:#40607A}
+        .hero-bg-shapes{display:none}
+        .hero-content{padding:120px 56px 120px 64px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:1}
+        .hero-img-col{display:flex;align-items:center;justify-content:center;padding:120px 48px 120px 0}
+        .hero-img-col img{width:85%;max-height:65vh;object-fit:contain;display:block}
+        .hero-eyebrow{display:inline-block;font-size:0.82rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;opacity:0;animation:heroUp 0.8s 0.2s cubic-bezier(0.16,1,0.3,1) forwards}
+        .hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,5.2rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:28px;letter-spacing:-0.03em;opacity:0;animation:heroUp 1s 0.2s cubic-bezier(0.16,1,0.3,1) forwards}
+        .hero h1 .h1-italic{font-style:italic;color:#CCDDFF;font-weight:700}
+        .hero h2{font-family:'Playfair Display',serif;font-size:clamp(1rem,1.8vw,1.3rem);font-weight:400;color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:36px;letter-spacing:0.04em;opacity:0;animation:heroUp 1s 0.35s cubic-bezier(0.16,1,0.3,1) forwards}
+        .hero-accent-line{width:60px;height:4px;background:var(--accent);border-radius:4px;margin:0 auto 28px;opacity:0;animation:heroUp 0.8s 0.35s cubic-bezier(0.16,1,0.3,1) forwards}
+        .hero-sub{font-size:1.25rem;color:rgba(255,255,255,0.82);font-weight:400;letter-spacing:0.04em;margin-bottom:44px;opacity:0;animation:heroUp 0.8s 0.45s cubic-bezier(0.16,1,0.3,1) forwards}
+        .hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:heroUp 0.8s 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+        @keyframes heroUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .hero-scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.55);font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;opacity:0;animation:heroUp 0.8s 1.2s cubic-bezier(0.16,1,0.3,1) forwards}
+        .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.55),transparent);animation:scrollPulse 2s ease-in-out infinite}
+        @keyframes scrollPulse{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:0.4;transform:scaleY(0.6)}}
+
+        .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;font-family:inherit;border:none;cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
+        .hero .btn{padding:12px 28px;font-size:0.85rem}
+        .btn-primary{background:var(--text);color:var(--white)}
+        .hero .btn-primary{background:var(--white);color:var(--text)}
+        .hero .btn-primary:hover{background:#CCDDFF;color:var(--text)}
+        .hero .btn-ghost{color:var(--white);border-color:rgba(255,255,255,0.35)}
+        .hero .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,0.1)}
+        .btn-primary:hover{background:var(--text-muted);transform:translateY(-3px);box-shadow:0 12px 32px rgba(107,125,160,0.3)}
+        .btn-ghost{background:transparent;color:var(--text);border:1.5px solid rgba(42,54,84,0.2)}
+        .btn-ghost:hover{border-color:var(--primary);background:rgba(154,172,236,0.08);transform:translateY(-3px)}
+        .btn .arrow{transition:transform 0.3s;font-size:1.1rem}
+        .btn:hover .arrow{transform:translateX(4px)}
+
+        section{padding:120px 32px;position:relative}
+        .section-inner{max-width:1080px;margin:0 auto}
+        .section-header{margin-bottom:56px}
+        .section-header.centered{text-align:center}
+        .section-label{font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+        .section-header.centered .section-label{justify-content:center}
+        .section-label::before{content:'';width:20px;height:2px;background:var(--accent);border-radius:2px}
+        .section-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1.15;letter-spacing:-0.02em;text-align:center}
+        .section-header .section-sub{margin-left:auto;margin-right:auto}
+        .section-sub{font-size:1.1rem;color:var(--text-muted);margin-top:16px;max-width:540px;line-height:1.8}
+        .section-header.centered .section-sub{margin-left:auto;margin-right:auto}
+
+        .section-logo{display:block;height:48px;width:auto;margin:0 auto 20px;opacity:0.8}
+        /* ABOUT + OVERVIEW — Merged */
+        #about{background:#ffffff;padding:72px 32px 0;position:relative}
+        .about-layout{text-align:center;max-width:920px;margin:0 auto}
+        .about-opener{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1.15;margin-bottom:24px;letter-spacing:-0.02em}
+        .about-opener em{font-style:italic;color:var(--primary-deep)}
+        .about-body p{font-size:1.05rem;line-height:1.9;color:var(--text-body);margin-bottom:18px}
+        .about-body p:last-child{margin-bottom:0}
+        .about-body em{font-style:italic}
+        .expect-area{background:transparent;margin:16px -32px 0;padding:36px 32px 60px}
+
+        /* MEET NATALIE */
+        #meet-natalie{background:#f5f5f5;padding:120px 32px}
+        .meet-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:72px;align-items:center;max-width:1080px;margin:0 auto}
+        .meet-photo-col{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md)}
+        .meet-photo{width:100%;display:block;object-fit:cover;object-position:top}
+        .meet-quotes{display:flex;flex-direction:column;gap:48px}
+        .meet-quote{position:relative;padding:28px 32px 28px 48px}
+        .meet-quote-mark{font-family:'Playfair Display',serif;font-size:9rem;line-height:1;color:#FFE566;position:absolute;top:-16px;left:0;z-index:0;font-weight:700;pointer-events:none;user-select:none}
+        .meet-quote-text{font-size:1.1rem;line-height:1.8;color:var(--text);font-style:italic;position:relative;z-index:1}
+        .meet-quote-author{font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:14px;position:relative;z-index:1}
+        .expect-divider{text-align:center;margin-bottom:48px}
+        .expect-divider-title{font-family:Playfair Display;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;color:var(--text);letter-spacing:-0.02em;line-height:1.2}
+
+        /* FEATURE CARDS — Overview */
+        .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;max-width:900px;margin-left:auto;margin-right:auto}
+        .bento-card{border-radius:var(--radius);padding:36px 28px;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s;background:var(--white);border:1px solid rgba(154,172,236,0.15);box-shadow:var(--shadow-sm)}
+        .bento-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+        .bento-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;background:#f5f5f5;color:#CCDDFF}
+        .bento-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:10px}
+        .bento-card p{font-size:0.92rem;color:var(--text-muted);line-height:1.75}
+        .bento-card p a{color:var(--primary-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+        /* PRICING LIST — Services */
+        #services{background:#f5f5f5;overflow:hidden;position:relative;padding:60px 32px 80px}
+        #services::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(143,163,232,0.08) 0%,transparent 70%);border-radius:50%}
+        .pricing-list{margin-top:52px;border-top:1.5px solid rgba(64,96,122,0.12);position:relative;z-index:1}
+        .pricing-row{display:flex;align-items:center;justify-content:space-between;gap:40px;padding:44px 0;border-bottom:1.5px solid rgba(64,96,122,0.12);transition:padding-left 0.4s cubic-bezier(0.16,1,0.3,1)}
+        .pricing-row:hover{padding-left:20px}
+        .pricing-row-left{display:flex;align-items:flex-start;gap:20px;flex:1}
+        .pricing-accent-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:14px}
+        .pricing-name{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--text);margin-bottom:8px}
+        .pricing-desc{font-size:0.92rem;color:var(--text-muted);line-height:1.7;max-width:460px}
+        .pricing-price-col{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:800;color:var(--text);flex-shrink:0;line-height:1;letter-spacing:-0.04em}
+        .services-note{margin-top:28px;font-size:0.9rem;color:var(--text-muted);font-style:italic;position:relative;z-index:1}
+
+        #process{background:var(--white);padding:60px 32px 72px;position:relative}
+
+        /* FAQ */
+        #faq{background:#f5f5f5;padding:60px 32px 72px;position:relative}
+        .faq-list{margin-top:48px;border-top:1.5px solid rgba(64,96,122,0.12)}
+        .faq-item{border-bottom:1.5px solid rgba(64,96,122,0.12)}
+        .faq-question{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;gap:24px;user-select:none}
+        .faq-question-text{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.4}
+        .faq-icon{flex-shrink:0;width:26px;height:26px;border:1.5px solid rgba(64,96,122,0.3);border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;transition:all 0.3s;color:var(--text)}
+        .faq-item.open .faq-icon{background:var(--primary);border-color:var(--primary);color:#fff;transform:rotate(45deg)}
+        .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
+        .faq-answer-inner{padding:0 72px 20px 26px;font-size:0.95rem;color:var(--text-muted);line-height:1.85}
+        .faq-answer-inner a{color:var(--primary-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+        .faq-item.open .faq-answer{max-height:400px}
+        .faq-item.open .faq-answer.faq-answer--map{max-height:700px}
+        .faq-service-map{width:100%;height:300px;border-radius:var(--radius-xs);margin-top:16px;overflow:hidden;z-index:0}
+        .process-timeline{margin-top:56px;position:relative}
+        .process-timeline::before{content:'';position:absolute;left:31px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--primary-muted),transparent)}
+        .process-step{display:flex;gap:32px;padding:0 0 48px;position:relative}
+        .process-step:last-child{padding-bottom:0}
+        .step-marker{width:64px;height:64px;flex-shrink:0;background:var(--bg);border:3px solid var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Playfair Display;font-weight:700;font-size:1.2rem;color:var(--text);position:relative;z-index:1;transition:all 0.4s}
+        .process-step:hover .step-marker{background:var(--accent);border-color:var(--accent);transform:scale(1.1)}
+        .step-body{padding-top:12px}
+        .step-body h3{font-family:Playfair Display;font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:8px}
+        .step-tag{display:inline-block;background:var(--accent-light);color:var(--text);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;padding:3px 10px;border-radius:4px;margin-left:10px;vertical-align:middle;text-transform:uppercase}
+        .step-body p{color:var(--text-muted);font-size:1.02rem;line-height:1.8}
+        .step-body a{color:var(--primary-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+        /* EDITORIAL STEPS — Process split layout */
+        .process-split{display:grid;grid-template-columns:2fr 3fr;gap:60px;margin-top:68px;align-items:center}
+        .process-steps-col{display:flex;flex-direction:column;gap:40px}
+        .editorial-step{display:flex;gap:0;align-items:flex-start}
+        .editorial-step-num{font-family:'Playfair Display',serif;font-size:5.5rem;font-weight:800;color:#f5f5f5;line-height:0.82;flex-shrink:0;opacity:1;letter-spacing:-0.06em;margin-top:-52px;margin-left:-12px;margin-right:-22px;position:relative;z-index:0;width:5rem}
+        .editorial-step-content{position:relative;z-index:1;text-align:left}
+        .editorial-step-content h3{font-family:Playfair Display;font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:10px;margin-top:10px}
+        .editorial-step-content p{font-size:0.95rem;color:var(--text-muted);line-height:1.85}
+        .editorial-step-content a{color:var(--primary-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+        .process-form-col .contact-form-card{background:var(--bg-pale);border-radius:var(--radius);padding:44px;border:1px solid rgba(143,163,232,0.2)}
+        .process-form-col .form-row{grid-template-columns:1fr 1fr}
+        .form-card-title{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--text);margin-bottom:24px}
+        .process-form-col .form-submit{background:#40607A;color:var(--white)}
+        .process-form-col .form-submit:hover{background:#344f66;box-shadow:0 12px 32px rgba(64,96,122,0.35)}
+        .process-form-col .form-submit:disabled{background:#B8C4F0;cursor:not-allowed;transform:none!important;box-shadow:none!important;color:var(--white)}
+
+        .natalie-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
+        .natalie-carousel{position:relative}
+        .carousel-track{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow-lg)}
+        .carousel-track::before{content:'';position:absolute;inset:-12px;background:linear-gradient(135deg,var(--primary-muted),var(--accent-light));border-radius:calc(var(--radius)+8px);z-index:-1;opacity:0.5;transform:rotate(-2deg)}
+        .carousel-slide{position:absolute;inset:0;opacity:0;transition:opacity 0.6s ease}
+        .carousel-slide.active{opacity:1;position:relative}
+        .carousel-slide img{width:100%;height:100%;object-fit:cover;object-position:top}
+        .carousel-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px}
+        .carousel-btn{background:var(--white);border:1.5px solid rgba(154,172,236,0.3);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.5rem;color:var(--text);transition:all 0.3s;line-height:1;padding:0}
+        .carousel-btn:hover{background:var(--accent);border-color:var(--accent)}
+        .carousel-dots{display:flex;gap:8px;align-items:center}
+        .carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--primary-muted);cursor:pointer;transition:all 0.3s;border:none;padding:0}
+        .carousel-dot.active{background:var(--text);transform:scale(1.3)}
+        .natalie-text-col .section-header{margin-bottom:28px}
+        .natalie-bio p{font-size:1.05rem;line-height:1.9;margin-bottom:18px;color:var(--text-body)}
+        .natalie-bio strong{color:var(--text);font-weight:600}
+        .natalie-bio em{color:var(--primary-deep)}
+        .natalie-highlight{margin-top:24px;padding:20px 24px;background:var(--bg-pale);border-radius:var(--radius-sm);font-weight:600;color:var(--text);font-size:1rem;line-height:1.7;border-left:4px solid var(--accent)}
+
+        #overview{display:none}
+        .overview-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:center}
+        .overview-photo-wrapper{position:relative}
+        .overview-photo-wrapper::before{content:'';position:absolute;inset:-12px;background:linear-gradient(135deg,var(--primary-muted),var(--accent-light));border-radius:calc(var(--radius) + 8px);z-index:0;opacity:0.5;transform:rotate(-2deg)}
+        .overview-photo{position:relative;z-index:1;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-lg)}
+        .overview-photo img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1)}
+        .overview-photo:hover img{transform:scale(1.03)}
+        .overview-badge{position:absolute;bottom:-16px;right:-16px;z-index:2;background:var(--accent);color:var(--text);padding:14px 24px;border-radius:var(--radius-sm);font-weight:700;font-size:0.88rem;box-shadow:var(--shadow-md);transform:rotate(3deg)}
+        .overview-text p{font-size:1.08rem;line-height:1.9;margin-bottom:20px;color:var(--text-body)}
+        .overview-text strong{color:var(--text);font-weight:600}
+        .overview-text em{color:var(--primary-deep)}
+        .overview-highlight-strip{margin-top:36px;padding:24px 28px;background:var(--bg-pale);border-radius:var(--radius-sm);font-weight:600;color:var(--text);font-size:1.05rem;line-height:1.7;border-left:4px solid var(--accent)}
+
+        #natalie{background:var(--bg)}
+        .natalie-content{max-width:720px;margin-top:44px}
+        .natalie-content p{font-size:1.08rem;line-height:1.9;margin-bottom:20px}
+        .trait-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+        .trait-tag{padding:10px 22px;border-radius:50px;font-size:0.88rem;font-weight:600;background:var(--white);color:var(--text);border:1px solid rgba(154,172,236,0.25);transition:all 0.3s}
+        .trait-tag:hover{border-color:var(--accent);background:var(--accent-light);transform:translateY(-2px)}
+
+        #reviews{background:var(--white);position:relative;overflow:hidden}
+        
+        .testimonials-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px;position:relative;z-index:1}
+        .testimonial-card{background:var(--white);padding:44px 36px;border-radius:var(--radius);box-shadow:var(--shadow-md);position:relative;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);border:1px solid rgba(154,172,236,0.08)}
+        .testimonial-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+        .quote-mark{font-family:Playfair Display;font-size:5rem;line-height:1;color:var(--primary-muted);opacity:0.4;position:absolute;top:16px;left:28px}
+        .testimonial-stars{color:var(--accent);font-size:0.9rem;letter-spacing:3px;margin-bottom:16px}
+        .testimonial-text{font-size:1.1rem;line-height:1.8;color:var(--text-body);font-style:italic;margin-bottom:24px;position:relative;z-index:1}
+        .testimonial-author{font-weight:700;color:var(--text);font-size:0.92rem;display:flex;align-items:center;gap:10px}
+        .testimonial-author::before{content:'';width:24px;height:2px;background:var(--accent);border-radius:2px}
+
+        #contact{background:var(--white)}
+        .contact-layout{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;margin-top:56px;align-items:start}
+        .contact-info-card{background:var(--bg);border-radius:var(--radius);padding:44px 36px}
+        .contact-info-card h3{font-family:Playfair Display;font-size:1.4rem;color:var(--text);margin-bottom:12px}
+        .contact-info-card>p{color:var(--text-muted);line-height:1.8;margin-bottom:32px;font-size:0.98rem}
+        .contact-detail{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(154,172,236,0.15);font-size:0.95rem}
+        .contact-detail:last-child{border-bottom:none}
+        .contact-detail-icon{width:44px;height:44px;background:var(--white);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--primary-deep);box-shadow:var(--shadow-sm)}
+        .contact-detail a{color:var(--text);text-decoration:none;font-weight:500;transition:color 0.2s}
+        .contact-detail a:hover{color:var(--primary-deep)}
+        .contact-form-card{background:var(--bg-pale);border-radius:var(--radius);padding:44px;border:1px solid rgba(154,172,236,0.15)}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;font-weight:600;font-size:0.85rem;color:var(--text);margin-bottom:8px;letter-spacing:0.02em}
+        .form-group input,.form-group select,.form-group textarea{width:100%;padding:14px 18px;border:1.5px solid rgba(154,172,236,0.3);border-radius:var(--radius-xs);font-family:inherit;font-size:0.95rem;color:var(--text);background:var(--white);transition:all 0.3s;outline:none}
+        .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(154,172,236,0.15)}
+        .form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-muted);opacity:0.5}
+        .form-group textarea{min-height:120px;resize:vertical}
+        .form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2340607A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+        /* Flatpickr custom calendar */
+        .flatpickr-calendar{font-family:'Playfair Display',serif!important;border-radius:16px!important;box-shadow:0 8px 32px rgba(26,43,95,0.13)!important;border:1.5px solid rgba(154,172,236,0.3)!important;padding:10px!important;background:#fff!important;width:320px!important}
+        .flatpickr-days,.dayContainer{width:300px!important;min-width:300px!important;max-width:300px!important}
+        .flatpickr-day{max-width:40px!important}
+        .flatpickr-months{border-radius:12px 12px 0 0}
+        .flatpickr-month,.flatpickr-current-month,.flatpickr-current-month input.cur-year{font-family:'Playfair Display',serif!important;color:#40607A!important;fill:#40607A!important;font-size:1rem!important}
+        .flatpickr-current-month .flatpickr-monthDropdown-months{font-family:'Playfair Display',serif!important;color:#40607A!important}
+        .flatpickr-weekday{font-family:'Playfair Display',serif!important;color:#9AACEC!important;font-weight:600!important}
+        .flatpickr-day{font-family:'Playfair Display',serif!important;color:#40607A!important;border-radius:10px!important;border:none!important}
+        .flatpickr-day:hover{background:#CCDDFF!important;color:#40607A!important}
+        .flatpickr-day.selected,.flatpickr-day.selected:hover{background:#9AACEC!important;border-color:#9AACEC!important;color:#fff!important;border-radius:10px!important}
+        .flatpickr-day.today{border-color:#9AACEC!important;color:#40607A!important}
+        .flatpickr-day.today:hover{background:#CCDDFF!important}
+        .flatpickr-day.flatpickr-disabled,.flatpickr-day.flatpickr-disabled:hover{color:rgba(64,96,122,0.25)!important;cursor:not-allowed!important;background:transparent!important}
+        .flatpickr-day.prevMonthDay,.flatpickr-day.nextMonthDay{color:rgba(64,96,122,0.2)!important}
+        .form-group select.placeholder-active{color:rgba(64,96,122,0.4)}
+        .flatpickr-prev-month,.flatpickr-next-month{color:#40607A!important;fill:#40607A!important}
+        .flatpickr-prev-month:hover svg,.flatpickr-next-month:hover svg{fill:#9AACEC!important}
+        .numInputWrapper span{border-radius:6px}
+        .form-submit{width:100%;padding:18px;background:var(--text);color:var(--white);border:none;border-radius:var(--radius-xs);font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);margin-top:8px;letter-spacing:0.02em}
+        .form-submit:hover{background:var(--primary-deep);transform:translateY(-2px);box-shadow:0 12px 32px rgba(107,136,216,0.3)}
+        .form-submit:disabled,.form-submit[disabled]{background:var(--primary-muted);cursor:not-allowed;transform:none!important;box-shadow:none!important;opacity:0.7}
+        .form-success{display:none;text-align:center;padding:56px 24px}
+        .form-success.show{display:block}
+        .check-circle{width:72px;height:72px;background:linear-gradient(135deg,var(--primary-muted),var(--primary));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:var(--shadow-glow)}
+        .form-success h3{font-family:Playfair Display;font-size:1.6rem;color:var(--text);margin-bottom:8px}
+        .form-success p{color:var(--text-muted);font-size:1.02rem}
+
+        footer{background:var(--text);color:rgba(255,255,255,0.7);padding:0}
+        .footer-inner{max-width:1200px;margin:0 auto;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;position:relative}
+        .footer-center-logo{height:36px;width:auto;opacity:0.9}
+        .footer-brand .footer-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--white);text-align:left}
+        .footer-brand{text-align:left}
+        .footer-brand .footer-logo span{color:var(--white)}
+        .footer-brand p{font-size:0.9rem;color:rgba(255,255,255,0.45);max-width:300px;line-height:1.7}
+        .footer-social{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.7);text-decoration:none;font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:600;transition:color 0.2s}
+        .footer-social:hover{color:var(--white)}
+        .footer-nav h4{font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
+        .footer-nav a{display:block;color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.92rem;padding:5px 0;transition:color 0.2s}
+        .footer-nav a:hover{color:var(--accent)}
+        .footer-bottom{max-width:1080px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;color:rgba(255,255,255,0.3)}
+        .footer-social{display:flex;gap:12px}
+        .footer-social a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;transition:all 0.3s;text-decoration:none}
+        .footer-social a:hover{background:var(--accent);transform:translateY(-2px)}
+
+        @media(max-width:1000px){
+            .bento-grid{grid-template-columns:1fr 1fr;max-width:100%}
+            .process-split{grid-template-columns:1fr;gap:48px}
+            .process-form-col .form-row{grid-template-columns:1fr}
+        }
+        @media(max-width:900px){
+            .about-layout{grid-template-columns:1fr;gap:32px}
+            .about-photo-col{max-height:360px}
+            .expect-area{margin:56px -32px 0;padding:56px 32px 72px}
+            .natalie-layout{grid-template-columns:1fr}
+            .about-grid{grid-template-columns:1fr;gap:48px}
+            .testimonials-grid{grid-template-columns:1fr}
+            .contact-layout{grid-template-columns:1fr}
+            .footer-inner{grid-template-columns:1fr;gap:32px}
+            .footer-bottom{flex-direction:column;gap:16px;text-align:center}
+        }
+        @media(max-width:600px){
+            .bento-grid{grid-template-columns:1fr}
+            .pricing-row{flex-direction:column;align-items:flex-start;gap:12px;padding:32px 0}
+            .pricing-row:hover{padding-left:0}
+            .pricing-price-col{font-size:2.8rem}
+        }
+        @media(max-width:768px){
+            .nav-links{display:none}
+            .nav-right .nav-get-in-touch{display:none}
+            .hamburger{display:flex}
+            .expect-area{margin:48px -20px 0;padding:48px 20px 64px}
+            section{padding:80px 20px}
+            .hero{grid-template-columns:1fr;min-height:auto}
+            .hero-content{padding:120px 24px 60px}
+            .hero-img-col{padding:0 24px 60px}
+            .hero h1{font-size:2.6rem}
+            .hero-scroll-hint{display:none}
+            .form-row{grid-template-columns:1fr}
+            .process-step{gap:20px}
+            .step-marker{width:52px;height:52px;font-size:1rem}
+            .process-timeline::before{left:25px}
+            .contact-form-card{padding:28px 20px}
+            .contact-info-card{padding:32px 24px}
+            .walkies-bar{flex-direction:column;text-align:center}
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init('IwEYBU-qIZIyZBbrp');</script>
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">Golden Paws <span>&</span> Company</a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+            </ul>
+            <a href="#process" class="nav-get-in-touch">Get in Touch</a>
+            <a href="#faq" class="nav-get-in-touch">FAQs</a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#services" onclick="closeMenu()">Services</a>
+        <a href="#process" onclick="closeMenu()">Get in Touch</a>
+        <a href="#faq" onclick="closeMenu()">FAQs</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Where<br><span class="h1-italic">Happy Tails</span><br>Begin</h1>
+        <h2>Local and reliable pet care - full of love.</h2>
+        <div class="hero-buttons">
+            <a href="#services" class="btn btn-ghost">View Services</a>
+            <a href="#process" class="btn btn-primary">Schedule Meet & Greet <span class="arrow">&rarr;</span></a>
+        </div>
+    </div>
+    <div class="hero-img-col">
+        <img src="hero2.png" alt="">
+    </div>
+</section>
+
+<section id="about">
+    <div class="section-inner">
+        <img src="hero_right.png" alt="" class="section-logo">
+        <div class="about-layout">
+            <p class="about-opener reveal">Your Dog's New Bestie</p>
+            <div class="about-body reveal">
+                <p>Hi, I’m Natalie — the dog lover behind Golden Paws & Company!</p>
+                <p>With over 10 years of pet-sitting experience through Rover, as well as volunteer dog walking at Humane Colorado, I’ve had the joy of working with dogs of all breeds, ages, sizes, and personalities. As a <em>slightly</em> obsessed dog mom to two Golden Retrievers, Zion and Maggie, I know firsthand how important it is to have someone you trust caring for your pup.</p>
+                <p>Originally from Indianapolis, I’m a proud Purdue graduate and currently work as a Program Manager at Adobe. I’ve called Colorado home for the past eight years and love all the adventures it has to offer. Above all, I’m trustworthy, compassionate, and genuinely love getting to know each dog’s unique personality.</p>
+                <p><strong>My goal is simple: provide reliable care, plenty of exercise and enrichment, and total peace of mind for you</strong>.</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="expect-area">
+        <div class="section-inner">
+            <div class="expect-divider reveal">
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card reveal stagger-2">
+                    <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+                    <h3>Made for Your Dog</h3>
+                    <p>Every walk or visit is tailored to your dog’s energy, routine, and personality — because no two pups are the same.</p>
+                </div>
+                 <div class="bento-card reveal stagger-4">
+                    <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
+                    <h3>Always in the Loop</h3>
+                    <p>Easy booking, simple payments, real-time walk updates, and adorable photos through the <a href="https://personalwalkies.com/journal" target="_blank" rel="noopener">Walkies app</a>.</p>
+                </div>
+                <div class="bento-card reveal stagger-3">
+                    <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                    <h3>Your Neighborhood Walker</h3>
+                    <p>Local, dependable pet care right here in the community — from someone who truly loves getting to know every pup.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services">
+    <div class="section-inner">
+        <img src="hero_right.png" alt="" class="section-logo">
+        <div class="section-header centered reveal">
+            <h2 class="section-title">Services & Rates</h2>
+            <p class="section-sub">Options that fit you and your pup's needs.</p>
+        </div>
+        <div class="pricing-list">
+            <div class="pricing-row reveal stagger-1">
+                <div class="pricing-row-left">
+                    <span class="pricing-accent-dot" style="background:#CCDDFF"></span>
+                    <div>
+                        <div class="pricing-name">The Potty &amp; Play Break</div>
+                        <p class="pricing-desc"><strong>20-minute drop-in visit</strong></p>
+                        <p class="pricing-desc">Includes mid-day potty break, treat, and water refresh</p>
+                    </div>
+                </div>
+                <div class="pricing-price-col">$15</div>
+            </div>
+            <div class="pricing-row reveal stagger-2">
+                <div class="pricing-row-left">
+                    <span class="pricing-accent-dot" style="background:#CCDDFF"></span>
+                    <div>
+                        <div class="pricing-name">The Neighborhood Stroll</div>
+                        <p class="pricing-desc"><strong>30-minute walk</strong></p>
+                        <p class="pricing-desc">Approximately 1.5 miles, adjusted to your dog's pace and preferences</p>
+
+                    </div>
+                </div>
+                <div class="pricing-price-col">$22</div>
+            </div>
+            <div class="pricing-row reveal stagger-3">
+                <div class="pricing-row-left">
+                    <span class="pricing-accent-dot" style="background:#CCDDFF"></span>
+                    <div>
+                        <div class="pricing-name">The Adventure Walk</div>
+                        <p class="pricing-desc"><strong>60-minute walk</strong></p>
+                        <p class="pricing-desc">Approximately 3 miles, adjusted to your dog's pace and preferences</p>
+                    </div>
+                </div>
+                <div class="pricing-price-col">$38</div>
+            </div>
+        </div>
+        <p class="services-note reveal">Save on recurring walks & visits: 10% off 3+ bookings per week, 15% off 5+ bookings per week.
+    </div>
+</section>
+
+<section id="process">
+    <div class="section-inner">
+        <img src="hero_right.png" alt="" class="section-logo">
+        <div class="section-header centered reveal">
+            <h2 class="section-title">From Hello to Best Buds</h2>
+            <p class="section-sub">A few easy steps to get started.</p>
+        </div>
+        <div class="process-split">
+            <div class="process-steps-col">
+                <div class="editorial-step reveal stagger-1">
+                    <div class="editorial-step-num">01</div>
+                    <div class="editorial-step-content">
+                        <h3>Get in Touch</h3>
+                        <p>Introduce yourself and your dog by filling out the contact form to request a meet & greet.</p>
+                    </div>
+                </div>
+                <div class="editorial-step reveal stagger-2">
+                    <div class="editorial-step-num">02</div>
+                    <div class="editorial-step-content">
+                        <h3>Meet &amp; Greet</h3>
+                        <p>Let your pup get comfortable with sniffs, pets, and a friendly introduction before our first hang.</p>
+                    </div>
+                </div>
+                <div class="editorial-step reveal stagger-3">
+                    <div class="editorial-step-num">03</div>
+                    <div class="editorial-step-content">
+                        <h3>Create Walkies Profile</h3>
+                        <p><a href="https://personalwalkies.com/journal" target="_blank" rel="noopener">Download app &rarr;</a> for bookings, payments, and rea-time updates at your fingertips.</p>
+                    </div>
+                </div>
+                <div class="editorial-step reveal stagger-4">
+                    <div class="editorial-step-num">04</div>
+                    <div class="editorial-step-content">
+                        <h3>Schedule Walk or Visit</h3>
+                        <p>Book your dog’s new favorite part of the day and let the adventures begin!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="process-form-col reveal">
+                <div class="contact-form-card">
+                    <div id="pFormContent">
+                        <h3 class="form-card-title">Request Meet &amp; Greet</h3>
+                        <div class="form-row"><div class="form-group"><label for="p-ownerName">Your Name *</label><input type="text" id="p-ownerName" required></div><div class="form-group"><label for="p-dogName">Dog's Name *</label><input type="text" id="p-dogName" required></div></div>
+                        <div class="form-row"><div class="form-group"><label for="p-email">Email *</label><input type="email" id="p-email" required></div><div class="form-group"><label for="p-phone">Phone *</label><input type="tel" id="p-phone"></div></div>
+                        <div class="form-group"><label for="p-neighborhood">Address *</label><input type="text" id="p-neighborhood"></div>
+                        <div class="form-row"><div class="form-group"><label for="p-service">Service Interested In *</label><select id="p-service" required><option value="" disabled selected>Select a service</option><option>Dog Walking</option><option>Drop-in Visits</option><option>Dog Walking &amp; Drop-in Visits</option></select></div><div class="form-group"><label for="p-date">Preferred Date *</label><input type="text" id="p-date" placeholder="Select a date" readonly></div></div>
+                        <div class="form-group"><label for="p-reason">Primary Reason for Services *</label><select id="p-reason"><option value="" disabled selected>Select a reason </option><option value="quality">Quality of life — more enrichment, exercise, routine, or socialization</option><option value="schedule">Schedule-based — long hours, returning to office, or work travel</option><option value="transition">Life transition — recently moved, new baby, or recovering from surgery</option><option value="age">Puppy or senior dog — more frequent potty breaks or special care</option></select></div>
+                        <button class="form-submit" id="p-submitBtn" onclick="submitProcessForm()" disabled>Submit Request</button>
+                    </div>
+                    <div class="form-success" id="pFormSuccess">
+                        <div class="check-circle"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                        <h3>Hi! I've received your request and will reach out to confirm our meet & greet within 24 hours.</h3>
+                        <p>I can't wait to meet you and your pup!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="faq">
+    <div class="section-inner">
+        <img src="hero_right.png" alt="" class="section-logo">
+        <div class="section-header centered reveal">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item reveal stagger-1">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">Do you offer a meet & greet before starting services?</span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer"><div class="faq-answer-inner">Yes! A meet & greet is <strong>required</strong> before your first walk or visit so your pup and I can get comfortable with one another. It’s a great opportunity to review routines, answer questions, and make sure everyone feels confident moving forward.</div></div>
+            </div>
+                        <div class="faq-item reveal stagger-2">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">What areas do you serve?</span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer faq-answer--map"><div class="faq-answer-inner">Golden Paws & Company currently serves the Aurora Knolls – Hutchinson Heights neighborhood and surrounding areas within a 2-mile radius. If you’re nearby and unsure whether you fall within the service area, feel free to <a href="mailto:GoldenPaws_AndCo@gmail.com">reach out</a> — I’m always happy to check!<div id="service-area-map" class="faq-service-map"></div></div></div>
+            </div>            
+            <div class="faq-item reveal stagger-3">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">How do I book walks or visits? What are my scheduling options? </span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer"><div class="faq-answer-inner">Bookings are managed through the <a href="https://personalwalkies.com/journal" target="_blank" rel="noopener">Walkies app</a> where you have the option to select a 3-hour morning, afternoon, or evening window. I will arrive during your chosen timeframe and we will leverage the Walkies app for real-time updates, tracking, and photos during my walk or visit.</div></div>
+            </div>
+            <div class="faq-item reveal stagger-4">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">How and when do I pay for walks or visits?</span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer"><div class="faq-answer-inner">Payments are managed through the <a href="https://personalwalkies.com/journal" target="_blank" rel="noopener">Walkies app</a> where you can connect your Venmo, PayPal, Zelle, or bank accounts to directly pay Golden Paws & Company. Please note: Invoices must be completed within 24 hours of your walk or visit; if you have outstanding invoices, future serviecs will not be accepted.</div></div>
+            </div>
+            <div class="faq-item reveal stagger-5">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">Do you offer discounts?</span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer"><div class="faq-answer-inner">Yes! Receive a 10% discount when booking 3-4 walks or visits at a time and a 15% discount when booking 5-7 walks or visits at a time. If you're interested in receiving a multi-pack service discount, <a href="mailto:GoldenPaws_AndCo@gmail.com">send Natalie an email</a>!</div></div>
+            </div>
+                        <div class="faq-item reveal stagger-6">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">What is your cancellation or reschedule policy?</span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer"><div class="faq-answer-inner">Life happens! If you need to cancel or reschedule a walk or visit, simply update your booking through the Walkies app at least 6 hours before your scheduled booking. I’ll always do my best to accommodate schedule changes when possible.</div></div>
+            </div>            
+                        <div class="faq-item reveal stagger-7">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">How do you access my home for walks or visits?</span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer"><div class="faq-answer-inner">During our meet & greet, we’ll go over the best way for me to access your home — whether that’s a lockbox, keypad, or spare key. Your home and pup’s safety are always my top priority, and any access details are kept private and secure in the Walkies Journal app.</div></div>
+            </div>
+                        <div class="faq-item reveal stagger-8">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">How many dogs will you walk at once?</span>
+                    <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </div>
+                <div class="faq-answer"><div class="faq-answer-inner">Two dogs from the <strong>same household</strong> can be walked at once on a case-by-case basis. Otherwise, only one dog will be walked at a time, which allows us to walk at their pace and allows them to go wherever their sniffs take them! Additional dog rates are $10 per additional dog for walking (and require special approval) and $5 per additional dog for drop-in visits.</div></div>
+            </div>            
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand"><div class="footer-logo">Golden Paws <span>&</span> Company</div></div>
+        <div style="display:flex;gap:12px;align-items:center">
+        <a href="mailto:GoldenPaws_AndCo@gmail.com" class="footer-social" aria-label="Email Golden Paws &amp; Company"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
+        <a href="https://www.instagram.com/goldenpaws_andco" target="_blank" rel="noopener" class="footer-social"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open')}
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30)});
+const navSections=[{id:'about',link:'a[href="#about"]'},{id:'services',link:'a[href="#services"]'},{id:'process',link:'a[href="#process"]'},{id:'faq',link:'a[href="#faq"]'}];
+let serviceMap=null;
+function initServiceMap(){if(serviceMap)return;const lat=39.6897,lng=-104.7744;serviceMap=L.map('service-area-map',{scrollWheelZoom:false}).setView([lat,lng],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:18}).addTo(serviceMap);L.circle([lat,lng],{radius:3219,color:'#9AACEC',fillColor:'#9AACEC',fillOpacity:0.2,weight:2}).addTo(serviceMap);L.marker([lat,lng]).addTo(serviceMap).bindPopup('<strong>Aurora Knolls – Hutchinson Heights</strong><br>Service area center').openPopup();}
+function toggleFaq(btn){const item=btn.closest('.faq-item');const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));if(!isOpen){item.classList.add('open');if(item.querySelector('#service-area-map')){setTimeout(()=>{initServiceMap();if(serviceMap)serviceMap.invalidateSize();},420);}}}
+let heroVisible=true;
+const heroObs=new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting;updateActiveNav();},{threshold:0.1});
+const heroEl=document.querySelector('.hero');if(heroEl)heroObs.observe(heroEl);
+function updateActiveNav(){const selectors=['.nav-links ','','.nav-right '];if(heroVisible){navSections.forEach(s=>{selectors.forEach(pfx=>{const el=document.querySelector(pfx+s.link);if(el)el.classList.remove('active')});});return;}const scrollY=window.scrollY+window.innerHeight*0.4;let active=null;navSections.forEach(s=>{const el=document.getElementById(s.id);if(el&&el.offsetTop<=scrollY)active=s.id;});navSections.forEach(s=>{selectors.forEach(pfx=>{const el=document.querySelector(pfx+s.link);if(el)el.classList.toggle('active',s.id===active);});});}
+window.addEventListener('scroll',updateActiveNav,{passive:true});
+const ro=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting)n.target.classList.add('vis')})},{threshold:0.08,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>ro.observe(el));
+function submitForm(){const r=['ownerName','email','dogName','service'];let v=true;r.forEach(id=>{const el=document.getElementById(id);if(!el.value.trim()){el.style.borderColor='#e74c3c';v=false;el.addEventListener('input',()=>{el.style.borderColor=''},{ once:true})}});if(!v)return;document.getElementById('formContent').style.display='none';document.getElementById('formSuccess').classList.add('show')}
+function checkProcessForm(){const ids=['p-ownerName','p-dogName','p-service','p-email','p-phone','p-neighborhood'];const btn=document.getElementById('p-submitBtn');if(!btn)return;btn.disabled=!ids.every(id=>{const el=document.getElementById(id);return el&&el.value.trim()!==''&&el.value!==''})}
+document.addEventListener('DOMContentLoaded',()=>{['p-ownerName','p-dogName','p-service','p-email','p-phone','p-neighborhood'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',checkProcessForm)});flatpickr('#p-date',{dateFormat:'M j, Y',minDate:'today',disableMobile:true});['p-service','p-reason'].forEach(id=>{const sel=document.getElementById(id);if(!sel)return;const upd=()=>sel.classList.toggle('placeholder-active',!sel.value||sel.value==='');upd();sel.addEventListener('change',upd)})});
+function submitProcessForm(){const ids=['p-ownerName','p-dogName','p-service','p-email','p-phone','p-neighborhood'];let valid=true;ids.forEach(id=>{const el=document.getElementById(id);if(!el||!el.value.trim()||el.value===''){if(el)el.style.borderColor='#e74c3c';valid=false;if(el)el.addEventListener('input',()=>{el.style.borderColor=''},{ once:true})}});if(!valid)return;const params={owner_name:document.getElementById('p-ownerName').value,dog_name:document.getElementById('p-dogName').value,service:document.getElementById('p-service').value,reply_to:document.getElementById('p-email').value,phone:document.getElementById('p-phone').value,address:document.getElementById('p-neighborhood').value,preferred_date:document.getElementById('p-date').value,primary_reason:document.getElementById('p-reason').value};emailjs.send('service_tq64sur','template_58xo4yo',params).catch(err=>console.warn('Email send failed:',err));document.getElementById('pFormContent').style.display='none';document.getElementById('pFormSuccess').classList.add('show')}
+let carouselIdx=0;
+let carouselTimer=null;
+function moveCarousel(dir){const slides=document.querySelectorAll('.carousel-slide');const dots=document.querySelectorAll('.carousel-dot');slides[carouselIdx].classList.remove('active');dots[carouselIdx].classList.remove('active');carouselIdx=(carouselIdx+dir+slides.length)%slides.length;slides[carouselIdx].classList.add('active');dots[carouselIdx].classList.add('active')}
+function goToSlide(i){const slides=document.querySelectorAll('.carousel-slide');const dots=document.querySelectorAll('.carousel-dot');slides[carouselIdx].classList.remove('active');dots[carouselIdx].classList.remove('active');carouselIdx=i;slides[carouselIdx].classList.add('active');dots[carouselIdx].classList.add('active');clearInterval(carouselTimer);carouselTimer=setInterval(()=>moveCarousel(1),8000)}
+carouselTimer=setInterval(()=>moveCarousel(1),8000);
+</script>
+</body>
+</html>
