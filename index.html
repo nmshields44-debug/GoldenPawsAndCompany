@@ -736,7 +736,7 @@ function submitProcessForm(){
   btn.disabled=true;btn.textContent='Sending…';
   fetch('https://formspree.io/f/xkoqyaqn',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({'Full Name':getText('p-ownerName'),"Dog's Name":getText('p-dogName'),'Service':getText('p-service'),'email':getText('p-email'),'_replyto':getText('p-email'),'Phone':getText('p-phone'),'Address':getText('p-neighborhood'),'Preferred Date':getText('p-date')||'Not specified','Primary Reason':getText('p-reason')||'Not specified'})})
     .then(r=>r.json())
-    .then(data=>{if(data.ok){document.getElementById('pFormContent').style.display='none';document.getElementById('pFormSuccess').classList.add('show');}else{throw new Error(data.error||'Submission failed');}})
+    .then(data=>{if(data.ok){document.getElementById('pFormContent').style.display='none';document.getElementById('pFormSuccess').classList.add('show');}else{const details=data.errors?data.errors.map(e=>e.field+': '+e.message).join('\n'):'';throw new Error((data.error||'Submission failed')+(details?'\n'+details:''));}})
     .catch(err=>{btn.disabled=false;btn.textContent='Submit Request';alert('Something went wrong: '+err.message+'\n\nPlease email directly: GoldenPaws.AndCo@gmail.com');});
 }
 let carouselIdx=0;
